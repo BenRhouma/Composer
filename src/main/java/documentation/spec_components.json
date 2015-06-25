@@ -1,0 +1,14 @@
+[{
+     "ID"           :"EMCN"   
+    ,"name"         :"Mysql Connection"
+    ,"type"         :"org.sql.Connection"
+    ,"factory"      :"org.expander"
+    ,"dependencies" :[]
+},
+{
+     "id"           :"EMIN"
+    ,"name"         :"Mysql Input"
+    ,"type"         :"org.sql.Connection"
+    ,"factory"      :"org.expander"
+    ,"dependencies" :[]
+}]
