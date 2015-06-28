@@ -4,14 +4,17 @@ Composer, the next gen graphical language
 this project aims to create and simplify writing java programs (jobs) or may be scala in the future, 
 
 It's because some guys like me are lazy that I/We come up with this idea, I have tried so many technologies in the market
-, but all of them has some missing parts, So 
+, but all of them has some missing parts
+
+some technologies are built within eclipse,  the others imitate existing ones without providing the needed flexibility to
+ resolve real problems with ease, We think that even for graphical languages, the developer must stay in control of his code
+  that's why generated code must have a good quality.
 
 Goal:
 
 the project contain 2 main parts,
-
-***Runtime Part 
-***Graphic Part
+- Runtime Part 
+- Graphic Part
 
 There is so many enhancements that we could do, if you are interested in please join me
 

@@ -16,6 +16,10 @@ case class Tree[+T](category:String , children : Seq[Tree[T]]=Seq()){
 // platform is the abstraction of the ide itself
 object Platform {
     val registry:Tree[Node] = Tree(category = "org.xos")
+    val javaSourceVersion = 1.7
+    val javaCompilerVersion = 1.7
+    val encoding = "UTF-8"
+    val groupId = "org.xos"
 
     def subscribe(node :Node): Unit ={
        print(node.id)
@@ -23,5 +27,6 @@ object Platform {
          path=> println(path)
        }
     }
+
 
 }
