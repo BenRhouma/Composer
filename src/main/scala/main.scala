@@ -1,20 +1,30 @@
+import java.io.File
+
+import builder.ProjectBuilder
 import org.xos.components.db.mysql.MysqlConnection
 import org.xos.meta.project.{Job, Project}
+
 /**
  * @author z.benrhouma 
  * @since  14/06/2015
  */
 object main {
 
-  def main(args :Array[String]): Unit ={
-
-    implicit val project:Project = new Project(name="")
-    implicit val job = new Job(name="test")
-
-    project.jobs :+ job
+  implicit val project: Project = new Project(name = "model-generator")
+  implicit val job = new Job(name = "test")
 
 
-    val xz = new MysqlConnection()
-    println(xz.output)
+  def addComponents(): Unit ={
+    new MysqlConnection()
+  }
+
+  def main(args: Array[String]): Unit = {
+
+    new File("src/main/gen-java").mkdirs()
+    new File("src/main/gen-java/src/main/java").mkdirs()
+    new File("src/main/gen-java/src/main/resources").mkdirs()
+    val currentFolder : File = new File("./src/main/gen-java")
+    ProjectBuilder.buildProject(project,currentFolder )
+
   }
 }
