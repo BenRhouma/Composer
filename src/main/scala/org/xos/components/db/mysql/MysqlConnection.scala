@@ -22,7 +22,7 @@ class MysqlConnection(implicit job :Job)
       s"jdbc:mysql://localhost:${port}/${db}?user=${user}&password=${password}"
   }
 
-  override def output: String = {
+  override def configureComponentJavaWriter = {
 
     val me = MethodSpec.methodBuilder("getConnection")
       .addException(classOf[Exception])
@@ -34,7 +34,7 @@ class MysqlConnection(implicit job :Job)
     .addCode("}catch(Exception e){\n  throw e;\n} finally {\n}\n")
     .build()
 
-    this.job.builder.toBuilder.addMethod(me).build().toString
+    job.builder= job.builder.addMethod(me)
 
   }
 

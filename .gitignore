@@ -5,3 +5,4 @@ build/
 .nb-gradle/profiles/private/aux-config
 jbuilder/jbuilder.iml
 log/CrunchifyTest.log
+src/main/gen-java*

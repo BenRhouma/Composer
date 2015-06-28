@@ -2,7 +2,7 @@ package builder
 
 import java.io.{File, FileWriter}
 
-import org.xos.meta.project.{JarDependency, Project}
+import org.xos.meta.project.{Job, JarDependency, Project}
 
 import scala.xml.XML
 
@@ -58,8 +58,18 @@ object ProjectBuilder{
         XML.write(writer,buildPom(project),"utf-8",xmlDecl = true,null)
         writer.flush()
     }
+
+    def writeJavaFiles(project: Project, folder: File): Unit ={
+        for(p : Job <- project.jobs){
+           val fw = new FileWriter(s"${folder.getAbsolutePath}/src/main/java/${p.name}.java")
+            fw.write(p.print())
+            fw.flush()
+        }
+    }
+
     def buildProject(project:Project, folder :File): Unit ={
         writePomToFolder(project,folder)
+        writeJavaFiles(project,folder)
     }
 }
 

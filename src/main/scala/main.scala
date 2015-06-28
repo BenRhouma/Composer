@@ -11,7 +11,7 @@ import org.xos.meta.project.{Job, Project}
 object main {
 
   implicit val project: Project = new Project(name = "model-generator")
-  implicit val job = new Job(name = "test")
+  implicit val job = new Job(name = "logSql")
 
 
   def addComponents(): Unit ={
@@ -20,10 +20,13 @@ object main {
 
   def main(args: Array[String]): Unit = {
 
+
     new File("src/main/gen-java").mkdirs()
     new File("src/main/gen-java/src/main/java").mkdirs()
     new File("src/main/gen-java/src/main/resources").mkdirs()
     val currentFolder : File = new File("./src/main/gen-java")
+
+    addComponents()
     ProjectBuilder.buildProject(project,currentFolder )
 
   }
