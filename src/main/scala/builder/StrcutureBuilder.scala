@@ -2,9 +2,9 @@ package builder
 
 import java.io.{File, FileWriter}
 
-import org.xos.meta.project.{Job, JarDependency, Project}
+import org.xos.meta.project.{JarDependency, Job, Project}
 
-import scala.xml.XML
+import scala.xml._
 
 /**
  * @author z.benrhouma 
@@ -41,11 +41,18 @@ object ProjectBuilder{
                     }
                 }
               ).map { e =>
+
+              val c =
                 <dependency>
                     <groupId>{e.asInstanceOf[JarDependency].groupId}</groupId>
                     <artifactId>{e.asInstanceOf[JarDependency].artifactId}</artifactId>
                     <version>{e.asInstanceOf[JarDependency].version}</version>
                 </dependency>
+
+              val xm : Elem =Elem(null, null, Null, TopScope, Text(""))
+
+              c
+
             }}
             </dependencies>
 </project>
@@ -55,7 +62,9 @@ object ProjectBuilder{
     def writePomToFolder(project: Project,folder:File): Unit ={
         val file =new File(folder.getAbsolutePath+"/pom.xml")
         val writer =new FileWriter(file)
-        XML.write(writer,buildPom(project),"utf-8",xmlDecl = true,null)
+      val printer = new scala.xml.PrettyPrinter(80, 2)
+      val pom = buildPom(project)
+        XML.write(writer,pom,"utf-8",xmlDecl = true,null)
         writer.flush()
     }
 

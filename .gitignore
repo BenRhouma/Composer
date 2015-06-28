@@ -6,3 +6,5 @@ build/
 jbuilder/jbuilder.iml
 log/CrunchifyTest.log
 src/main/gen-java*
+XOS.iml
+src/main/gen-java*
