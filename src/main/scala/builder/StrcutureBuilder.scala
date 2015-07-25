@@ -3,7 +3,7 @@ package builder
 import java.io.{File, FileWriter}
 
 import org.xos.meta.platform.Platform
-import org.xos.meta.project.{JarDependency, Job, Project}
+import org.xos.meta.project._
 
 import scala.xml._
 
@@ -19,13 +19,9 @@ object ProjectBuilder {
              xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
       <modelVersion>4.0.0</modelVersion>
       <groupId>{Platform.groupId}</groupId>
-      <artifactId>
-        {project.name}
-      </artifactId>
+      <artifactId>{project.name}</artifactId>
       <packaging>jar</packaging>
-      <version>
-        {project.version}
-      </version>
+      <version>{project.version}</version>
 
       <properties>
         <project.build.sourceEncoding>{Platform.encoding}</project.build.sourceEncoding>
@@ -35,7 +31,7 @@ object ProjectBuilder {
 
       <dependencies>
         {(for {
-            p <- project.jobs; d <- p.dependencies
+            j <- project.jobs; d <- j.dependencies
         } yield {
                 d match {
                   case dependency: JarDependency => dependency
@@ -45,15 +41,9 @@ object ProjectBuilder {
         ).map { e =>
         // empty line
         <dependency>
-          <groupId>
-            {e.asInstanceOf[JarDependency].groupId}
-          </groupId>
-          <artifactId>
-            {e.asInstanceOf[JarDependency].artifactId}
-          </artifactId>
-          <version>
-            {e.asInstanceOf[JarDependency].version}
-          </version>
+          <groupId>{e.asInstanceOf[JarDependency].groupId}</groupId>
+          <artifactId>{e.asInstanceOf[JarDependency].artifactId}</artifactId>
+          <version>{e.asInstanceOf[JarDependency].version}</version>
         </dependency>
       }}
       </dependencies>
@@ -71,12 +61,15 @@ object ProjectBuilder {
   }
 
   def writeJavaFiles(project: Project, folder: File): Unit = {
-    for (p: Job <- project.jobs) {
-      val fw = new FileWriter(s"${folder.getAbsolutePath}/src/main/java/${p.name}.java")
-      fw.write(p.print())
+    for (job: Job <- project.jobs) {
+      val fw = new FileWriter(s"${folder.getAbsolutePath}/src/main/java/${job.name}.java")
+      job.build()
+      fw.write(job.getSourceCode())
       fw.flush()
     }
   }
+
+
 
   def buildProject(project: Project, folder: File): Unit = {
     writePomToFolder(project, folder)

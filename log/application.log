@@ -1,0 +1,23 @@
+2015-07-06 22:33:34 [main] DEBUG remot:70 - validating inputgetConnection
+2015-07-06 22:34:16 [main] DEBUG remot:70 - validating input : getConnection
+2015-07-06 22:34:28 [main] DEBUG remot:70 - validating slot : getConnection
+2015-07-06 22:43:45 [main] INFO  remot:118 - Init org.xos.components.db.mysql.MysqlConnection :: init add new slog getCnx
+2015-07-06 22:43:45 [main] DEBUG remot:70 - validating slot : getConnection
+2015-07-20 00:44:27 [main] INFO  remot:118 - Init org.xos.components.db.mysql.MysqlConnection :: init add new slog getCnx
+2015-07-20 00:44:27 [main] DEBUG remot:70 - validating slot : getConnection
+2015-07-20 00:44:43 [main] INFO  remot:118 - Init org.xos.components.db.mysql.MysqlConnection :: init add new slog getCnx
+2015-07-20 00:44:43 [main] DEBUG remot:70 - validating slot : getConnection
+2015-07-20 00:49:20 [main] INFO  remot:118 - Init org.xos.components.db.mysql.MysqlConnection :: init add new slog getCnx
+2015-07-20 00:49:20 [main] DEBUG remot:70 - validating slot : getConnection
+2015-07-20 00:50:36 [main] INFO  remot:118 - Init org.xos.components.db.mysql.MysqlConnection :: init add new slog getCnx
+2015-07-20 00:50:37 [main] DEBUG remot:70 - validating slot : getConnection
+2015-07-20 00:55:30 [main] INFO  remot:118 - Init org.xos.components.db.mysql.MysqlConnection :: init add new slog getCnx
+2015-07-20 00:55:30 [main] DEBUG remot:70 - validating slot : getConnection
+2015-07-20 01:00:23 [main] INFO  remot:118 - Init org.xos.components.db.mysql.MysqlConnection :: init add new slog getCnx
+2015-07-20 01:00:23 [main] DEBUG remot:70 - validating slot : getConnection
+2015-07-20 01:04:20 [main] INFO  remot:118 - Init org.xos.components.db.mysql.MysqlConnection :: init add new slog getCnx
+2015-07-20 01:04:20 [main] DEBUG remot:70 - validating slot : getConnection
+2015-07-20 22:06:26 [main] INFO  remot:118 - Init org.xos.components.db.mysql.MysqlConnection :: init add new slog getCnx
+2015-07-20 22:06:27 [main] DEBUG remot:70 - validating slot : getConnection
+2015-07-24 23:21:17 [main] INFO  remot:118 - Configuration for component db.mysql.connection is not Valid
+2015-07-24 23:57:00 [main] INFO  remot:118 - Configuration for component db.mysql.connection is not Valid

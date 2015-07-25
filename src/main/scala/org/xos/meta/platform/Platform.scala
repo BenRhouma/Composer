@@ -8,7 +8,7 @@ import org.xos.meta.project.Node
  */
 
 case class Tree[+T](category:String , children : Seq[Tree[T]]=Seq()){
-    def isPartOf(node :Node): Boolean= node.path.take(node.path.lastIndexOf(".")).startsWith(category)
+//    def isPartOf(node :Node): Boolean= node.path.take(node.path.lastIndexOf(".")).startsWith(category)
     def inject(node :Node )={
 
     }
@@ -20,13 +20,15 @@ object Platform {
     val javaCompilerVersion = 1.7
     val encoding = "UTF-8"
     val groupId = "org.xos"
+    val generatedFilePath = "src/main/gen-java"
 
-    def subscribe(node :Node): Unit ={
-       print(node.id)
-       node.path.split("\\.").map{
-         path=> println(path)
-       }
-    }
+
+//  def subscribe(node :Node): Unit ={
+//       print(node.id)
+//       node.path.split("\\.").map{
+//         path=> println(path)
+//       }
+//    }
 
 
 }

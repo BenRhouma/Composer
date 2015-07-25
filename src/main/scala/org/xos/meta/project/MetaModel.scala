@@ -3,8 +3,9 @@ package org.xos.meta.project
 import java.io.File
 import java.util.UUID
 
-import com.squareup.javapoet.TypeSpec.Builder
-import com.squareup.javapoet.{JavaFile, TypeSpec}
+import org.jboss.forge.roaster.Roaster
+import org.jboss.forge.roaster.model.source.JavaClassSource
+import org.xos.components.java.Root
 import org.xos.meta.platform.Platform
 
 /**
@@ -15,39 +16,30 @@ object metaModel {
   val engineVersion = 1.0
 }
 
-abstract case class Node(id:String
-                         , classType:String
-                         , path : String
-                         , slots : Seq[slot]= Seq()
-                         , dependencies: Seq[Dependency]=Seq()
-                          )(implicit job :Job){
-
-  initNode()
-  def initNode() ={
-    configureComponentJavaWriter()
-    job.dependencies= job.dependencies ++ dependencies
-
-  }
-
-
-
-  def parentJob :Job = job
-
-  def configureComponentJavaWriter() : Unit
-
-
-  def register()={
-    Platform.registry.inject(this)
-  }
-}
-
-case class slot(source :Node , destination :Node, name: String)
+// ui properties of the base node { to be used depending the graphical environment}
 
  case class Job (id : String = UUID.randomUUID().toString,name: String)(implicit project : Project){
    var version: Double = metaModel.engineVersion
    var mainNodes: Seq[Node] = Seq()
    var dependencies: Seq[Dependency] = Seq()
-   var builder : Builder  =TypeSpec.classBuilder(name).addModifiers(javax.lang.model.element.Modifier.PUBLIC)
+   val builder : JavaClassSource  = Roaster.create(classOf[JavaClassSource])
+   val root = new Root()(this)
+   builder
+     .setPublic()
+     .setName(name)
+     .setPackage(project.packageName)
+
+    def build()={
+      xos.Logger.info(s"Building job $name")
+      root.slots.foreach{
+        s : (String, Slot) => {
+          if (s._2 != null) {
+              s._2.signal.parent.build()
+          }
+        }
+      }
+    }
+//     TypeSpec.classBuilder(name).addModifiers(javax.lang.model.element.Modifier.PUBLIC)
 
    lazy val parentProject = project
    //called after the constructor to add the current job to the implicit project
@@ -56,10 +48,8 @@ case class slot(source :Node , destination :Node, name: String)
      project.jobs=project.jobs :+ this
    }
     // write java file of the current job
-   def print() ={
-      val sp =builder.addModifiers().build()
-      JavaFile.builder( project.packageName,sp)
-       .build().toString
+   def getSourceCode() ={
+      builder.toString
    }
 }
 
@@ -68,8 +58,8 @@ case class Project(name:String,version:Double=metaModel.engineVersion){
 
 
   var jobs: Seq[Job]= Seq()
-  val packageName : String = "org.xos.model"
-  val generatedFilesPath = "src/main/gen-java"
+  val packageName : String = Platform.groupId
+  val generatedFilesPath = Platform.generatedFilePath
 
   init()
   def init(): Unit ={
@@ -77,7 +67,6 @@ case class Project(name:String,version:Double=metaModel.engineVersion){
     new File(s"$generatedFilesPath/src/main/java").mkdirs()
     new File(s"$generatedFilesPath/src/main/resources").mkdirs()
   }
-  def Project(){}
 
 }
 

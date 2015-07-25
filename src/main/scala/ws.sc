@@ -1,6 +1,2 @@
-import org.xos.components.db.mysql.MysqlConnection
+val m = List(1 , 2 , 3)
 
-val xz = new MysqlConnection()
-val x ={xz.configureComponentJavaWriter}
-
-println(x.toString())
