@@ -7,6 +7,7 @@ import org.jboss.forge.roaster.Roaster
 import org.jboss.forge.roaster.model.source.JavaClassSource
 import org.xos.components.java.Root
 import org.xos.meta.platform.Platform
+import xos.{Logger => logger}
 
 /**
  * @author z.benrhouma 

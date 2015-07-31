@@ -17,7 +17,7 @@ class RootSlot()(implicit node : Node) extends Slot("org.xos.db.mysql.connection
   def produce(): Unit ={
     this.node.parentJob.builder.addMethod()
       .setName("init")
-      .setReturnType(classOf[java.lang.Void]) //.addException(new Type)
+      .setReturnTypeVoid() //.addException(new Type)
       .setBody("")
 
   }
@@ -29,7 +29,7 @@ class Root(implicit job :Job) extends Node( id="xos.common.root"){
 
   this.slots+= "init" -> new RootSlot()
 
-   override def configureComponentJavaWriter(): Unit = {
+  override def configureComponentJavaWriter(): Unit = {
      val me = job.builder.addMethod()
      me.setPublic()
      me.setReturnType("void")

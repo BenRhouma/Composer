@@ -12,17 +12,8 @@ class MysqlConnectionSlot()(implicit node : Node) extends Slot("org.xos.db.mysql
   }
 
   def produce(): Unit ={
-          logger.debug(s"produce $name")
-          this.node.parentJob.builder.addImport("java.sql.Connection")
-          this.node.parentJob.builder.addMethod()
-            .setName("getConnection")
-            .addThrows(classOf[Exception])
-            .setReturnType(classOf[java.sql.Connection]) //.addException(new Type)
-            .setBody( s"""Class.forName("${mysql.jdbcDriver}")
-                      try{\n"
-                          return java.sql.DriverManager.getConnection("${MysqlConnection.buildUrl("zied", "zied", "test")}");
-                        }catch(Exception e){\n  throw e;\n}
-                        finally {\n}\n"""")
+//          mysql.produceConnection(node , node.configs.getString("login"),node.configs.getString("password"),node.configs.getString("db"))
+//          xos.Logger.debug(s"slot($name)Produce component ${node.id}")
   }
 }
 

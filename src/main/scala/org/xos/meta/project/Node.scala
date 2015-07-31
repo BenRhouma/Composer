@@ -1,9 +1,8 @@
 package org.xos.meta.project
 
 import com.typesafe.config.ConfigFactory
-import org.xos.meta.platform.Platform
-import xos.{Logger=>logger}
 import org.xos.meta.project.SlotType.SlotType
+import xos.{Logger => logger}
 
 case class UIHints(var visible : Boolean = true , x : Integer =0, y : Integer =0, h : Integer =50, w : Integer=40)
 
@@ -54,14 +53,29 @@ abstract case class Node(id:String
 
   def build(): Unit={
     xos.Logger.debug(s"Building node $id")
+
+    signals.foreach{
+      s : (String, Signal) =>{
+        logger.debug(s" produce ${s._2.parent.id}.signal(${s._2.name})")
+        s._2.produce
+      }
+    }
+
     slots.foreach{
       s : (String, Slot) => {
-        if (s._2 != null && s._2.signal!= null) {
-          logger.debug(s"trigger ($id.slot(${s._1}) --> ${s._2.signal.parent.id}.signal(${s._2.signal.name})")
-          s._2.signal.produce
+        if (s._2 != null) {
+          s._2.produce
+          if(s._2.signal!= null){
+            logger.debug(s"trigger ($id.slot(${s._1}) --> ${s._2.signal.parent.id}.signal(${s._2.signal.name})")
+            s._2.signal.parent.build()
+          }
+        }else{
+          logger.debug(s"signal(${s._2.name}) is not connected or null ")
         }
       }
     }
+
+
   }
 
   /**
@@ -79,7 +93,5 @@ abstract case class Node(id:String
   def configureComponentJavaWriter() : Unit
 
 
-  def register()={
-    Platform.registry.inject(this)
-  }
+
 }
